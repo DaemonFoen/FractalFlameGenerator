@@ -1,0 +1,250 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "type": "object",
+    "definitions": {
+        "transformations": {
+            "type": "object",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "CurlTransformation" },
+                            "params": {
+                                "type": "object",
+                                "properties": {
+                                    "c1": { "type": "number", "minimum": 0 },
+                                    "c2": { "type": "number", "minimum": 0 }
+                                },
+                                "required": ["c1", "c2"],
+                                "additionalProperties": false
+                            },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "params", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "ExponentialTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "HandkerchiefTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "HyperbolicTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "NoiseTransformation" },
+                            "params": {
+                                "type": "object",
+                                "properties": {
+                                    "seed": { "type": "integer" }
+                                },
+                                "required": ["seed"],
+                                "additionalProperties": false
+                            },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "params", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "PerspectiveTransformation" },
+                            "params": {
+                                "type": "object",
+                                "properties": {
+                                    "angle": { "type": "number", "minimum": 0, "maximum": 6.28318530718 },
+                                    "dist": { "type": "number", "minimum": 0.1 }
+                                },
+                                "required": ["angle", "dist"],
+                                "additionalProperties": false
+                            },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "params", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "PolarTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "SecantTransformation" },
+                            "params": {
+                                "type": "object",
+                                "properties": {
+                                    "v46": { "type": "number", "minimum": 0 }
+                                },
+                                "required": ["v46"],
+                                "additionalProperties": false
+                            },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "params", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "SinusoidalTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "SphericalTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "SpiralTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": { "const": "SwirlTransformation" },
+                            "rgb": { "$ref": "#/definitions/color" }
+                        },
+                        "required": ["type", "rgb"],
+                        "additionalProperties": false
+                    }
+                ]
+            }
+        },
+        "color": {
+            "type": "object",
+            "properties": {
+                "r": { "type": "number", "minimum": 0},
+                "g": { "type": "number", "minimum": 0},
+                "b": { "type": "number", "minimum": 0}
+            },
+            "required": ["r", "g", "b"],
+            "additionalProperties": false
+        }
+    },
+    "properties": {
+        "mode": {
+            "type": "string",
+            "enum": ["parallel", "sequential"],
+            "description": "Режим работы: параллельный или последовательный."
+        },
+        "threads": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Количество потоков (только для режима 'parallel')."
+        },
+        "samples": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Количество точек."
+        },
+        "iterations": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Количество итераций для каждой точки."
+        },
+        "gamma": {
+            "type": "number",
+            "minimum": 0
+        },
+        "seed": {
+            "type": "integer",
+            "description": "Seed для генерации случайных чисел."
+        },
+        "world": {
+            "type": "object",
+            "properties": {
+                "x": { "type": "number", "maximum": 0},
+                "y": { "type": "number", "maximum": 0},
+                "width": { "type": "number", "minimum": 0.1 },
+                "height": { "type": "number", "minimum": 0.1 }
+            },
+            "required": ["x", "y", "width", "height"]
+        },
+        "canvas": {
+            "type": "object",
+            "properties": {
+                "width": { "type": "integer", "minimum": 1 },
+                "height": { "type": "integer", "minimum": 1 }
+            },
+            "required": ["width", "height"]
+        },
+        "symmetry": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Параметр симметрии (должен быть >= 1)."
+        },
+        "output": {
+            "type": "object",
+            "properties": {
+                "path": { "type": "string", "description": "Путь для сохранения файла." },
+                "format": {
+                    "type": "string",
+                    "enum": ["png", "bmp", "jpeg"],
+                    "description": "Формат выходного изображения."
+                }
+            },
+            "required": ["path", "format"],
+            "additionalProperties": false
+        },
+        "transformations": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/transformations"
+            }
+        }
+    },
+    "required": ["mode", "samples", "iterations", "seed", "world", "canvas", "symmetry", "output", "transformations", "gamma"],
+    "if": {
+        "properties": { "mode": { "const": "parallel" } }
+    },
+    "then": {
+        "required": ["threads"]
+    },
+    "else": {
+        "not": {
+            "required": ["threads"]
+        }
+    },
+    "additionalProperties": false
+}

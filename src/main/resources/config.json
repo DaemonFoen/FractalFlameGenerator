@@ -1,0 +1,36 @@
+{
+    "mode": "parallel",
+    "threads" : 10,
+    "samples": 2000000,
+    "iterations": 200,
+    "seed": 4123123123132,
+    "gamma": 0.40,
+    "world": {
+        "x": -2.0,
+        "y": -2.0,
+        "width": 4.0,
+        "height": 4.0
+    },
+    "canvas": {
+        "width": 1920,
+        "height": 1080
+    },
+    "symmetry": 7,
+    "output": {
+        "path": "fractal_flame.png",
+        "format": "png"
+    },
+    "transformations": [
+        {
+            "type": "SpiralTransformation",
+            "rgb": { "r": 380, "g": 0, "b": 680 }
+        },
+        {
+            "type": "SecantTransformation",
+            "rgb": { "r": 624, "g": 124, "b": 980 },
+            "params": {
+                "v46": 1
+            }
+        }
+    ]
+}
