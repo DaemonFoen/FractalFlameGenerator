@@ -21,11 +21,9 @@ public class SequentialFractalFlameGenerator extends FractalFlameGenerator {
         Random rand = new Random(seed);
 
         for (int num = 0; num < samples; ++num) {
-            Point pw = randomPoint(world, rand);
-
             for (int step = -20; step < iterPerSample; ++step) {
                 Transformation transformation = transformations.get(rand.nextInt(transformations.size()));
-                pw = transformation.apply(pw);
+                Point pw = transformation.apply(randomPoint(world, rand));
 
                 for (int s = 0; s < symmetry; s++) {
                     double theta = Math.PI * 2 * s / symmetry;

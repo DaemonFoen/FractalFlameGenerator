@@ -67,18 +67,22 @@ public class ConcurrentFractalFlameGenerator extends FractalFlameGenerator {
                     Point rotatedPoint = rotatePoint(pw, theta);
 
                     if (world.contains(rotatedPoint)) {
-                        int x = (int) ((rotatedPoint.x() - world.x()) / world.width() * canvas.width());
-                        int y = (int) ((rotatedPoint.y() - world.y()) / world.height() * canvas.height());
-
-                        if (x >= 0 && x < canvas.width() && y >= 0 && y < canvas.height()) {
-                            synchronized (canvas.pixel(x, y)) {
-                                Pixel pixel = canvas.pixel(x, y);
-                                pixel.averageColor(rotatedPoint.r(), rotatedPoint.g(), rotatedPoint.b());
-                                pixel.incrementHitCount();
-                            }
-                        }
+                        processPixels(rotatedPoint);
                     }
                 }
+            }
+        }
+    }
+
+    private void processPixels(Point rotatedPoint) {
+        int x = (int) ((rotatedPoint.x() - world.x()) / world.width() * canvas.width());
+        int y = (int) ((rotatedPoint.y() - world.y()) / world.height() * canvas.height());
+
+        if (x >= 0 && x < canvas.width() && y >= 0 && y < canvas.height()) {
+            synchronized (canvas.pixel(x, y)) {
+                Pixel pixel = canvas.pixel(x, y);
+                pixel.averageColor(rotatedPoint.r(), rotatedPoint.g(), rotatedPoint.b());
+                pixel.incrementHitCount();
             }
         }
     }
