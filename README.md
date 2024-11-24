@@ -1,137 +1,74 @@
-# Шаблон Java-проекта для домашних заданий
+## Использование
 
-Шаблон для домашних заданий [Академии Бэкенда 2024][course-url].
+На вход подаётся строка - путь до файла конфигурации в формате json.
+Пример файла конфигурации можно найти по пути src/main/resources/config.json
+Файл обязан соответствовать установленной json схеме.
 
-Цель данного репозитория – познакомить вас с процессом разработки приложений на
-Java с использованием наиболее распространенных практик, инструментов и
-библиотек.
+## Конфигурация системы
 
-## Структура проекта
+### CPU
 
-Это типовой Java-проект, который собирается с помощью инструмента автоматической
-сборки проектов [Apache Maven](https://maven.apache.org/).
+Architecture:                       x86_64
 
-Проект состоит из следующих директорий и файлов:
+CPU op-mode(s):                     32-bit, 64-bit
 
-- [pom.xml](./pom.xml) – дескриптор сборки, используемый maven, или Project
-  Object Model. В нем описаны зависимости проекта и шаги по его сборке
-- [src/](./src) – директория, которая содержит исходный код приложения и его
-  тесты:
-  - [src/main/](./src/main) – здесь находится код вашего приложения
-  - [src/test/](./src/test) – здесь находятся тесты вашего приложения
-- [mvnw](./mvnw) и [mvnw.cmd](./mvnw.cmd) – скрипты maven wrapper для Unix и
-  Windows, которые позволяют запускать команды maven без локальной установки
-- [checkstyle.xml](checkstyle.xml),
-  [checkstyle-suppression.xml](checkstyle-suppression.xml), [pmd.xml](pmd.xml) и
-  [spotbugs-excludes.xml](spotbugs-excludes.xml) – в проекте используются
-  [линтеры](https://en.wikipedia.org/wiki/Lint_%28software%29) для контроля
-  качества кода. Указанные файлы содержат правила для используемых линтеров
-- [.mvn/](./.mvn) – служебная директория maven, содержащая конфигурационные
-  параметры сборщика
-- [lombok.config](lombok.config) – конфигурационный файл
-  [Lombok](https://projectlombok.org/), библиотеки помогающей избежать рутинного
-  написания шаблонного кода
-- [.editorconfig](.editorconfig) – файл с описанием настроек форматирования кода
-- [.github/workflows/build.yml](.github/workflows/build.yml) – файл с описанием
-  шагов сборки проекта в среде Github
-- [.gitattributes](.gitattributes), [.gitignore](.gitignore) – служебные файлы
-  для git, с описанием того, как обрабатывать различные файлы, и какие из них
-  игнорировать
+Byte Order:                         Little Endian
 
-## Начало работы
+Address sizes:                      39 bits physical, 48 bits virtual
 
-Подробнее о том, как приступить к разработке, описано в разделах
-[курса][course-url] `1.8 Настройка IDE`, `1.9 Работа с Git` и
-`1.10 Настройка SSH`.
+CPU(s):                             12
 
-Для того чтобы собрать проект, и проверить, что все работает корректно, можно
-запустить из модального окна IDEA
-[Run Anything](https://www.jetbrains.com/help/idea/running-anything.html)
-команду:
+On-line CPU(s) list:                0-11
 
-```shell
-mvn clean verify
-```
+Thread(s) per core:                 2
 
-Альтернативно можно в терминале из корня проекта выполнить следующие команды.
+Core(s) per socket:                 6
 
-Для Unix (Linux, macOS, Cygwin, WSL):
+Socket(s):                          1
 
-```shell
-./mvnw clean verify
-```
+Vendor ID:                          GenuineIntel
 
-Для Windows:
+CPU family:                         6
 
-```shell
-mvnw.cmd clean verify
-```
+Model:                              167
 
-Для окончания сборки потребуется подождать какое-то время, пока maven скачает
-все необходимые зависимости, скомпилирует проект и прогонит базовый набор
-тестов.
+Model name:                         11th Gen Intel(R) Core(TM) i5-11400 @ 2.60GHz
 
-Если вы в процессе сборки получили ошибку:
+Stepping:                           1
 
-```shell
-Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion failed with message:
-JDK version must be at least 22
-```
+CPU MHz:                            2591.998
 
-Значит, версия вашего JDK ниже 22.
+BogoMIPS:                           5183.99
 
-Если же получили ошибку:
+Hypervisor vendor:                  Microsoft
 
-```shell
-Rule 1: org.apache.maven.enforcer.rules.version.RequireMavenVersion failed with message:
-Maven version should, at least, be 3.8.8
-```
+Virtualization type:                full
 
-Значит, у вас используется версия maven ниже 3.8.8. Такого не должно произойти,
-если вы запускаете сборку из IDEA или через `mvnw`-скрипты.
+L1d cache:                          288 KiB
 
-Далее будут перечислены другие полезные команды maven.
+L1i cache:                          192 KiB
 
-Запуск только компиляции основных классов:
+L2 cache:                           3 MiB
 
-```shell
-mvn compile
-```
+L3 cache:                           12 MiB
 
-Запуск тестов:
+## Результаты теста производительности
 
-```shell
-mvn test
-```
+#### Последовательный режим
+- время выполнения: 260 ms
 
-Запуск линтеров:
+#### Параллельный режим
+- На 5 потоках: среднее время выполнения 104 ms
 
-```shell
-mvn checkstyle:check modernizer:modernizer spotbugs:check pmd:check pmd:cpd-check
-```
+- На 9 потоках: среднее время выполнения 62 ms
 
-Вывод дерева зависимостей проекта (полезно при отладке транзитивных
-зависимостей):
+- На 10 потоках: среднее время выполнения: 60 ms
 
-```shell
-mvn dependency:tree
-```
+При дальнейшем увеличении числа потоков прирост производительности не наблюдается.
 
-Вывод вспомогательной информации о любом плагине (вместо `compiler` можно
-подставить интересующий вас плагин):
 
-```shell
-mvn help:describe -Dplugin=compiler
-```
 
-## Дополнительные материалы
 
-- Документация по maven: https://maven.apache.org/guides/index.html
-- Поиск зависимостей и их версий: https://central.sonatype.com/search
-- Документация по процессу автоматизированной сборки в среде github:
-  https://docs.github.com/en/actions
-- Документация по git: https://git-scm.com/doc
-- Javadoc для Java 22:
-  https://docs.oracle.com/en/java/javase/22/docs/api/index.html
+## Результат из группы
 
-[course-url]: https://edu.tinkoff.ru/all-activities/courses/870efa9d-7067-4713-97ae-7db256b73eab
+![img.png](img.png)
